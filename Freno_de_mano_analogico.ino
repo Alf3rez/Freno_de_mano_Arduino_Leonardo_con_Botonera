@@ -7,6 +7,7 @@
 int SENSOR;
 int RESET;
 char TECLA;
+int i=0;
 
 // Create the Joystick
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
@@ -46,14 +47,20 @@ void setup() {
 }
 
 void loop() {
-  
+
   /*SENSOR = analogRead(A0);
   Serial.println(SENSOR);
   delay(500);*/
-
+  
   TECLA = teclado.getKey();
+  botones();
+  
+  //delay(0);
+}
 
-// Mapeo los botones
+void botones (){
+  
+  // Mapeo los botones
 
 
   if (TECLA == '1') {
@@ -151,6 +158,4 @@ void loop() {
   } else {
     Joystick.releaseButton(15);
     }
-
-  delay(50);
 }
