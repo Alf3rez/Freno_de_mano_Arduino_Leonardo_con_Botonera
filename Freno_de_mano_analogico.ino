@@ -9,7 +9,7 @@ bool TeclasPresionadas[16];
 
 // Create the Joystick
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
-            16, 0,                    // Botones, Hat switches
+            20, 0,                    // Botones, Hat switches
             false, false, true,       //Ejes X, Y, Z
             false, false, false,      //Ejes RX, RY, RZ
             false, false,             //Rudder, Throtle
@@ -22,6 +22,10 @@ UwUKeypad teclado = UwUKeypad(2, 3, 4, 5, 6, 7, 8, 9);
 void setup()
 {
   Serial.begin(9600);
+  pinMode(10,INPUT_PULLUP);
+  pinMode(11,INPUT_PULLUP);
+  pinMode(12,INPUT_PULLUP);
+  pinMode(13,INPUT_PULLUP);
   
   // Inicializo la emulación como Joystick
   Joystick.begin();
@@ -35,6 +39,7 @@ void loop()
   
   //TECLA = teclado.getKey();
   botones();
+  interruptores();
   
   //delay(0);
 }
@@ -47,11 +52,26 @@ void botones()
   {
     if(TeclasPresionadas[i])
     {
-      Joystick.pressButton(i);
+      Joystick.releaseButton(i);
     }
     else
     {
-      Joystick.releaseButton(i);
+      Joystick.pressButton(i);
+    }
+  }
+}
+
+void interruptores()
+{
+  for(byte j = 10; j < 14; j++)
+  {
+    if(digitalRead(j) == LOW)
+    {
+      Joystick.pressButton(j+6); 
+    }
+    else
+    {
+      Joystick.releaseButton(j+6);
     }
   }
 }
