@@ -26,6 +26,9 @@ void setup()
   pinMode(11,INPUT_PULLUP);
   pinMode(12,INPUT_PULLUP);
   pinMode(13,INPUT_PULLUP);
+  pinMode(A0, INPUT);
+
+  Joystick.setZAxisRange(20, 1000);
   
   // Inicializo la emulación como Joystick
   Joystick.begin();
@@ -33,13 +36,14 @@ void setup()
 
 void loop()
 {
-  /*SENSOR = analogRead(A0);
-  Serial.println(SENSOR);
+  SENSOR = analogRead(A0);
+  /*Serial.println(SENSOR);
   delay(500);*/
   
   //TECLA = teclado.getKey();
   botones();
   interruptores();
+  Joystick.setZAxis(SENSOR);
   
   //delay(0);
 }
